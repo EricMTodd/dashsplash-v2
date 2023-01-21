@@ -1,5 +1,6 @@
 * {
   font-family: 'fira sans', arial, sans-serif;
+  color: white;
 }
 
 body {
@@ -21,10 +22,9 @@ img {
 }
 
 #dock-container {
-  /* background-color: blue; */
   position: absolute;
   bottom: 0;
-  height: 15%;
+  height: 30%;
   width: 100vw;
 }
 
@@ -40,3 +40,14 @@ img {
   width: 100vw;
 }
 
+#clock-container {
+  display: flex;
+  justify-content: flex-end;
+  height: 100%;
+}
+
+#clock-container > h1 {
+  margin: 0;
+  font-size: 15vh;
+  margin-right: 2vw;
+}

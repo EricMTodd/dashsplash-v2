@@ -1,3 +1,5 @@
+import Clock from './Clock'
+
 const Dock = () => {
   return(
     <div id='dock-container'>
@@ -5,7 +7,7 @@ const Dock = () => {
 
       </div>
       <div id='dock-content'>
-
+        <Clock />
       </div>
     </div>
   )
