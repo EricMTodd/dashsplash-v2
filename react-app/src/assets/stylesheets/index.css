@@ -26,6 +26,7 @@ img {
   bottom: 0;
   height: 30%;
   width: 100vw;
+  z-index: 2;
 }
 
 #dock-haze {
@@ -50,4 +51,22 @@ img {
   margin: 0;
   font-size: 15vh;
   margin-right: 2vw;
+}
+
+#current-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  -webkit-transition: opacity 1s ease-in-out;
+  -moz-transition: opacity 1s ease-in-out;
+  -o-transition: opacity 1s ease-in-out;
+  transition: opacity 1s ease-in-out;
+  z-index: 1;
+}
+
+#next-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 0;
 }

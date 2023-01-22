@@ -18,6 +18,7 @@ const Clock = () => {
       currentMeridiem = 'PM'
     }
     document.querySelector('#clock').innerHTML = `${hour}:${minute} ${currentMeridiem}`
+    setTimeout(initializeClock, 1000)
   }
 
   useEffect(() => {

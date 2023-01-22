@@ -1,36 +1,53 @@
+import { useEffect, useState } from 'react'
+
 const SlideShow = () => {
-  const importImages = (r) => {
-    let images = {}
-    r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
-    return images
-  }
-  
-  const images = importImages(require.context('../assets/images', false, /\.(png|jpe?g|svg)$/))
-  let compiledImages = []
-  for (let i in images) {
-    compiledImages.push(images[i])
-  }
+  const [imagesList, setImagesList] = useState([])
 
-  let currentImage
-  let nextImage
-  const initializeSlideShow = (compiledImages) => {
-    currentImage = Math.floor(Math.random() * compiledImages.length)
-    nextImage = Math.floor(Math.random() * compiledImages.length)
-    if (nextImage === currentImage) {
-      if (currentImage === compiledImages.length - 1) {
-        nextImage = 0
-      } else {
-        nextImage = currentImage + 1
-      }
+  useEffect(() => {
+    const importImages = (r) => {
+      let images = {}
+      r.keys().map((item, index) => { images[item.replace('./', '')] = r(item); });
+      return images
     }
+    
+    const images = importImages(require.context('../assets/images', false, /\.(png|jpe?g|svg)$/))
+    let compiledImages = []
+    for (let i in images) {
+      compiledImages.push(images[i])
+    }
+    setImagesList(compiledImages)
+    
+    document.querySelector('#current-image').src = compiledImages[Math.floor(Math.random() * compiledImages.length)]
+    document.querySelector('#next-image').src = compiledImages[Math.floor(Math.random() * compiledImages.length)]
+
+  }, [])
+
+  const cycleSlides = () => {
+    document.querySelector('#current-image').style.opacity = '0'
+    let timeout = setTimeout(() => {
+      document.querySelector('#current-image').remove()
+      document.querySelector('#next-image').id = 'current-image'
+      document.querySelector('#current-image').alt = 'current-image'
+      let nextImage = document.createElement('img')
+      nextImage.src = imagesList[Math.floor(Math.random() * imagesList.length)]
+      nextImage.id = 'next-image'
+      nextImage.alt = 'next-image'
+      document.querySelector('#slide-show-container').appendChild(nextImage)
+    }, 1000)
+    return () => clearTimeout(timeout)
   }
 
-  initializeSlideShow(compiledImages)
+  useEffect(() => {
+    let interval = setInterval(() => {
+      cycleSlides()
+    }, 5000)
+    return () => clearInterval(interval)
+  })
 
   return(
     <div id='slide-show-container'>
-      <img src={compiledImages[currentImage]} alt='current-image' id='current-image' />
-      <img src={compiledImages[nextImage]} alt='next-image' id='next-image' />
+      <img id='current-image' alt='current-image'/>
+      <img id='next-image' alt='next-image'/>
     </div>
   )
 }
