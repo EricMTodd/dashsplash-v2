@@ -40,7 +40,7 @@ const SlideShow = () => {
   useEffect(() => {
     let interval = setInterval(() => {
       cycleSlides()
-    }, 5000)
+    }, 60000)
     return () => clearInterval(interval)
   })
 
